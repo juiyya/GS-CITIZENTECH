@@ -1,5 +1,4 @@
-# GLOBAL SOLUTION 2026.2 — CITIZENTECH
-## Operating Systems and Computer Networks  
+# GLOBAL SOLUTION 2026.2 — CITIZENTECH - Operating Systems and Computer Networks  
 ### Campo Conectado: infraestrutura de rede para uma cooperativa agrícola
 
 **Cenário:** Campo Conectado (C = 3)
@@ -14,9 +13,9 @@
 **Vídeo de demonstração:** [pitch-citizentech.mp4](https://youtu.be/5149j631tz0)  
 **Relatório Técnico:** `relatorio_tecnico.pdf`
 
-> nota: o relatório em pdf foi gerado automaticamente a partir deste README usando a ferramenta: Markdown: PDF (Export). 
-
 ---
+
+# RELATÓRIO TÉCNICO 
 
 # 1. Contexto CitizenTech
 
@@ -317,7 +316,7 @@ Acesso ao mesmo endereço a partir do SMART-WIFI (smartphone), conectado ao SSID
 
 *Figura 15 —  Portal do Cidadão; Acesso pelo smartphone*
 
-## 7.7. T7 — Resolução DNS (pendente de evidência)
+## 7.7. T7 — Resolução DNS 
 
 `nslookup www.campo.citizentech` com resposta `10.67.5.161`
 
@@ -331,9 +330,9 @@ O painel acessado pelo PC-L1 mostra IOT-TEMP, IOT-NIVEL e IOT-IRRIGACAO registra
 
 *Figura 16 — Três dispositivos registrados e online.*
 
-A regra `IrrigacaoAutomatica` foi habilitada com a condição **temporária** `IOT-TEMP Temperature > 0.0 °C` SET `IOT-IRRIGACAO Status = true`, devido à dificuldade de simular uma temperatura estável acima de 30 °C (seção 6.4). A falha foi corrigida posteriormente. 
+A regra `IrrigacaoAutomatica` foi habilitada com a condição **temporária** `IOT-TEMP Temperature > 30.0 °C` SET `IOT-IRRIGACAO Status = true`
 
-![T8 — Condição temporária do teste de irrigação](img/T8/condicao.png)
+![T8 — Condição do teste de irrigação](img/T8/condicao.png)
 
 *Figura 17 — Regra IoT habilitada*
 
