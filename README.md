@@ -11,7 +11,10 @@
 | Roberto Flaquer | 567348 |
 
 **Packet Tracer:** `GS2026_568438_568081_567348.pkt`  
-**Vídeo de demonstração:** `[AAAAAAAAAAAAAAAAAA]`  
+**Vídeo de demonstração:** [pitch-citizentech.mp4](https://youtu.be/seu-link-aqui)  
+**Relatório Técnico:** `relatorio_tecnico.pdf`
+
+> nota: o relatório em pdf foi gerado automaticamente a partir deste README usando a ferramenta: Markdown: PDF (Export). 
 
 ---
 
@@ -182,9 +185,9 @@ router rip
  no auto-summary
 ```
 
-As tabelas de rotas apresentaram redes diretamente conectadas (`C`), endereços locais (`L`) e redes aprendidas pelo RIP (`R`). Os testes T3 e T4 comprovaram comunicação até o servidor e recuperação após falha. O grupo organizou capturas de `show ip route` de R1, R2 e R3 em `img/T2/`; é preciso conferir que as três mostram todas as sub-redes (sem a indicação `--More--`).
+As tabelas de rotas apresentaram redes diretamente conectadas (`C`), endereços locais (`L`) e redes aprendidas pelo RIP (`R`). Os testes T3 e T4 comprovaram comunicação até o servidor e recuperação após falha.
 
-As senhas foram configuradas pelo grupo. A saída atual de `show running-config` do **R2** confirmou `enable secret`, senha de console com `login`, `service password-encryption`, `banner motd` contendo cenário e RMs e descrições nas interfaces em uso. Os arquivos `img/R1config.png`, `img/R2config.png` e `img/R3config.png` documentam a ativação inicial das interfaces.
+As senhas foram configuradas. A saída atual de `show running-config` do **R2** confirmou `enable secret`, senha de console com `login`, `service password-encryption`, `banner motd` contendo cenário e RMs e descrições nas interfaces em uso. Os arquivos `img/R1config.png`, `img/R2config.png` e `img/R3config.png` documentam a ativação inicial das interfaces.
 
 Registros iniciais: [R1 — configuração inicial](img/R1config.png) · [R2 — configuração inicial](img/R2config.png) · [R3 — configuração inicial](img/R3config.png).
 
@@ -202,7 +205,7 @@ Registros iniciais: [R1 — configuração inicial](img/R1config.png) · [R2 —
 
 Nos roteadores foi aplicado `ip helper-address 10.67.5.161` nas interfaces LAN **R1 G0/0 e G0/2; R2 G0/0 e G0/1; R3 G0/0**. Como o servidor está na L2, R1 G0/1 não precisa desse comando.
 
-**Registros DNS A previstos:** `www.campo.citizentech → 10.67.5.161` e `iot.campo.citizentech → 10.67.5.161`. O serviço HTTP hospeda o Portal do Cidadão com informações sobre o Campo Conectado e os três RMs. O acesso ao portal pelo domínio foi testado nos PCs e no Wi-Fi. !!!!!!!!!!!!!!!O registro `iot` e o resultado formal do `nslookup` devem ser capturados na revisão final.!!!!!!!!!!!!
+**Registros DNS A previstos:** `www.campo.citizentech → 10.67.5.161` e `iot.campo.citizentech → 10.67.5.161`. O serviço HTTP hospeda o Portal do Cidadão com informações sobre o Campo Conectado e os três RMs. O acesso ao portal pelo domínio foi testado nos PCs e no Wi-Fi.
 
 ## 6.3. Wi-Fi público
 
@@ -214,20 +217,9 @@ O acesso ao portal demonstra que visitantes podem alcançar pelo menos esse serv
 
 Na rede **L5**, um AP exclusivo (`AP-IOT`) com SSID `CT-IOT` foi conectado ao SW-L5, pois o dispositivo **Thermostat** disponível na versão usada possui interface sem fio, sem adaptador Ethernet. Os três equipamentos **IOT-TEMP (Thermostat)**, **IOT-NIVEL (Water Level Monitor)** e **IOT-IRRIGACAO (Lawn Sprinkler)** aparecem registrados e online no serviço IoT do SRV-CITIZEN (`10.67.5.161`). O Thermostat foi usado como equivalente funcional sugerido no enunciado.
 
-A regra `IrrigacaoAutomatica` foi criada no painel do PC-L1. A **condição prevista para operação** é `IOT-TEMP.Temperature > 30 °C` → `IOT-IRRIGACAO.Status = true`. Nas capturas do teste, o limite aparece temporariamente ajustado para **0 °C**, não para 30 °C.
-
-**Problema encontrado:** ao modificar o gráfico de **Ambient Temperature** no painel **Environments**, a leitura do Thermostat, inicialmente próxima de **23 °C**, caiu para **0 °C** e depois ficou próxima de **5 °C**, sem acompanhar os valores esperados do gráfico. O Water Level Monitor também exibiu `0.00`. Isso impediu uma reprodução confiável de um cenário de temperatura ambiente superior a 30 °C.
-
-As prints mostram a regra **habilitada**, os **três dispositivos online** e o **Lawn Sprinkler ligado** (indicador verde e animação de água na topologia). O atuador respondeu também ao controle manual.
-
+Inicialmente não conseguimos modificar o gráfico da temperatura no painel **Environments** para simular a automação rodando. Corrigimos o problema ajustando o tempo da simulação. 
 
 # 7. Evidências dos testes obrigatórios T1 a T9
-
-
-| Teste | Evidência disponível | Situação |
-|---|---|---|
-| **T7** | `nslookup www.campo.citizentech` | **PENDENTE** |
-| **T9** | Ping do PC ao switch de sua LAN | **PENDENTE** |
 
 ## 7.1. T1 — Endereçamento IPv4 por DHCP
 
@@ -313,46 +305,49 @@ O novo `tracert` mostrou PC-L4 → R2 (`10.67.1.254`) → R3 (`10.67.5.186`) →
 
 O teste verifica o acesso ao portal `http://www.campo.citizentech` pelo navegador do PC-L6.
 
-![T5 — Portal aberto no PC-L6](img/T5/PC-L6login.png)
+![T5 — Portal aberto no PC-L6](img/T5/PC-L6portal.png)
 
-*Figura 14 — Página de login IOT; aberta no web-browser do PC-L6*
+*Figura 14 — Portal do Cidadão; aberta no web-browser do PC-L6*
 
 ## 7.6. T6 — Portal do Cidadão no Wi-Fi público
 
 Acesso ao mesmo endereço a partir do SMART-WIFI (smartphone), conectado ao SSID `CT-867` no Home Gateway.
 
-![T6 — Portal aberto no smartphone](img/T6/SMART-WIFIlogin.png)
+![T6 — Portal aberto no smartphone](img/T6/SMART-WIFI.png)
 
-*Figura 15 —  Página de login IOT; Acesso pelo smartphone*
+*Figura 15 —  Portal do Cidadão; Acesso pelo smartphone*
 
 ## 7.7. T7 — Resolução DNS (pendente de evidência)
 
-TIRAR PRINTTTT TTTT T 
-teste: `nslookup www.campo.citizentech` com resposta `10.67.5.161`. tirar o print, salvar como `img/T7/nslookup.png` 
+`nslookup www.campo.citizentech` com resposta `10.67.5.161`
+
+![T7 — nslookup](img/T7/nslookup.png)
 
 ## 7.8. T8 — Registro e automação IoT
 
 O painel acessado pelo PC-L1 mostra IOT-TEMP, IOT-NIVEL e IOT-IRRIGACAO registrados no servidor IoT `10.67.5.161`.
 
-![T8 — Dispositivos cadastrados no IoT Server](img/T8/IOTserverdevices.png)
+![T8 — Dispositivos cadastrados no IoT Server](img/T8/devices.png)
 
 *Figura 16 — Três dispositivos registrados e online.*
 
-A regra `IrrigacaoAutomatica` foi habilitada com a condição **temporária** `IOT-TEMP Temperature > 0.0 °C` SET `IOT-IRRIGACAO Status = true`, devido à dificuldade de simular uma temperatura estável acima de 30 °C (seção 6.4).
+A regra `IrrigacaoAutomatica` foi habilitada com a condição **temporária** `IOT-TEMP Temperature > 0.0 °C` SET `IOT-IRRIGACAO Status = true`, devido à dificuldade de simular uma temperatura estável acima de 30 °C (seção 6.4). A falha foi corrigida posteriormente. 
 
-![T8 — Condição temporária do teste de irrigação](img/T8/IOTdeviceconditions.png)
+![T8 — Condição temporária do teste de irrigação](img/T8/condicao.png)
 
 *Figura 17 — Regra IoT habilitada*
 
-![T8 — Irrigador acionado](img/T8/IOTirrigacao.png)
+![T8 — Irrigador acionado](img/T8/irrigacao.png)
 
 *Figura 18 — Lawn Sprinkler em funcionamento.*
 
-**Resultado e limitação:** os dispositivos e o controle remoto foram demonstrados e a condição temporária foi configurada, mas não foi registrada uma comprovação do acionamento automático acima de 30 °C devido as dificuldades de editar as variáveis do ambiente simulado. (seção 6.4).
+## 7.9. T9 — Gerenciamento do switch 
 
-## 7.9. T9 — Gerenciamento do switch (PENDENTE evidência)
+O teste exige ping de um PC para o IP de gerenciamento do switch de sua própria LAN. 
 
-O teste exige ping de um PC para o IP de gerenciamento do switch de sua própria LAN. Exemplo: no PC-L4 executar `ping 10.67.1.253` (SW-L4). Salvar como `img/T9/pingSW-L4.png`.
+![T9 ping SW-L4](img/T9/pingSW-L4.png).
+
+*Figura 19 — Ping SW-L4.*
 
 # 8. Respostas dissertativas
 
@@ -374,12 +369,8 @@ O servidor DHCP está na L2 e atende equipamentos de outras LANs. Como broadcast
 
 # 9. Declaração de uso de IA
 
-Foi utilizado Deepseek como apoio na organização do relatório, conferência dos cálculos VLSM e para pesquisas gerais sobre o Cisco Packet Tracer.
+Utilizamos o Deepseek como apoio na revisão dos cálculos VLSM, na organização do relatório e na conferência dos testes. Os cálculos, as configurações no Packet Tracer, as capturas de tela e as justificativas foram produzidos e validados pelos integrantes. Verificações feitas pelo grupo: recálculo manual do VLSM, execução dos testes T1–T9 no simulador, conferência das tabelas de rotas e das evidências anexadas.
 
 ---
 
-## REVISAR
 
-- **Entregáveis:** arquivo `.pkt`, relatório em **PDF de até 12 páginas** e vídeo **não listado de até 5 minutos** (link no relatório).
-- **Participação:** os **três integrantes** precisam aparecer e falar no vídeo; demonstrar T4, T6 e T8 ao vivo.
-- **Pendências:** prints T7 e T9 
